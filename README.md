@@ -149,7 +149,7 @@ On-demand research using creative methodology:
 
 ### Design Agents (Specialized Expertise)
 
-8 specialized agents applying rigorous frameworks:
+10 specialized agents applying rigorous frameworks:
 
 | Agent | Domain Focus | Use For |
 |-------|--------------|---------|
@@ -161,10 +161,27 @@ On-demand research using creative methodology:
 | **animation-choreographer** | Motion design | Timing, transitions, feedback |
 | **responsive-strategist** | Adaptation strategy | Breakpoints, multi-device patterns |
 | **voice-strategist** | Communication strategy | Tone, messaging, microcopy |
+| **design-context** | System intelligence | Maintains structured design context, reconciles artifacts |
+| **design-check** | Quality validation | Three-layer design system compliance checking |
 
 **Frameworks applied:**
 - **Nine Dimensions** (visual work): Style, Motion, Voice, Space, Color, Typography, Proportion, Texture, Body
 - **Five Pillars** (all domains): Purpose, Craft, Constraints, Incompleteness, Humans
+
+### Design Context System (NEW)
+
+The design system builds itself as you work. No questionnaires, no forms.
+
+**Structured Design Context** (`.design/context.json`) — A machine-readable snapshot of your project's design system state, maintained automatically. When the art-director picks colors or the design-system-architect defines tokens, the reconciler agent extracts those decisions into a structured format that every other agent can read.
+
+**Opinionated Gap-Filling** — When an agent needs a value that hasn't been established yet (e.g., motion timing), it doesn't ask you — it proposes a sensible default based on what's already decided. Warm editorial aesthetic? You get deliberate 200/400/600ms timing. Dense data dashboard? Quick 100/200/300ms. You can override anything, but the system keeps moving.
+
+**Design Check** — Before presenting work to you, agents validate their own output against your design system:
+- **Static analysis**: Hardcoded values, missing tokens, contrast ratios
+- **Structural analysis**: AI fingerprint patterns, missing component states, spacing consistency
+- **Visual analysis**: Screenshot capture + vision AI checking palette, typography, and style compliance
+
+You never see a report. You see finished work that already passes.
 
 ### Verification (Visual Validation)
 
@@ -272,8 +289,9 @@ This bundle follows Amplifier's principles and adds creative research methodolog
 - **[Creative Research Methodology](context/research-methodology/creative-research-methodology.md)** — The full methodology with examples
 - **[Cognitive Task Catalog](context/research-methodology/cognitive-task-catalog.md)** — Library of decomposed problems
 - **[Engineering Examples](context/examples/engineering-examples.md)** — Complete engineering walkthroughs
+- **[Design Context System](docs/specs/2026-03-12-design-context-system.md)** — Structured context, inference chains, design-check
 - **[Verification Guide](VERIFICATION_GUIDE.md)** — Visual verification setup and usage
-- **[Quick Workflow](docs/WORKFLOW.md)** — Step-by-step guide
+- **[Privacy & Data Handling](PRIVACY.md)** — What data is collected, stored, and how to opt out
 
 ---
 
@@ -284,8 +302,8 @@ This bundle follows Amplifier's principles and adds creative research methodolog
 | **2.0 Foundation** | ✅ Complete | Discovery integration, research capability, design agents |
 | **2.1 Verification** | ✅ Complete | Visual verification tools, validation workflow |
 | **2.2 Universalization** | ✅ Complete | Engineering/product/strategy support, domain detection |
-| **2.3 Generation** | 🔄 In Progress | Design Protocol spec, token generation, artifact export |
-| **3.0 Feedback** | ⏳ Planned | Validation loops, taste refinement, continuous improvement |
+| **2.3 Context + Generation** | ✅ Complete | Structured design context, design-check, token generation, artifact export |
+| **3.0 Feedback** | ⏳ Planned | Taste refinement, continuous improvement |
 
 ---
 
@@ -297,6 +315,8 @@ This bundle is named **design-intelligence-enhanced** to distinguish it from Mic
 - Includes all design-intelligence capabilities
 - Adds visual verification tools (v2.1.0)
 - Expands to universal applicability (v2.2.0)
+- Structured design context with auto-completeness (v2.3.0)
+- Privacy controls, compliance-ready (RSS feeds, no scraping)
 - Community-maintained enhancements
 
 **Installation uses the enhanced name:**
