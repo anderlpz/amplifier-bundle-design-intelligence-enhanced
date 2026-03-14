@@ -244,6 +244,18 @@ Prevent circular fix loops with visual verification:
 
 ---
 
+## Superpowers Integration
+
+Design-intelligence-enhanced works seamlessly with the superpowers bundle. When both are loaded, design thinking becomes a natural part of the engineering workflow:
+
+- **Brainstorming**: The `design-brainstorming` skill is auto-discovered when superpowers enters `/brainstorm` mode. It adds design dimensions (aesthetic direction, UX patterns, cross-domain research) alongside engineering architecture.
+- **Planning**: The `design-planning` skill enriches `/write-plan` mode with design tasks — design-check validation steps, context.json updates, and accessibility verification.
+- **Implementation**: Design-check runs as agent self-correction during `/execute-plan`, catching hardcoded values and design system violations before code is presented.
+
+**No configuration needed.** If both bundles are in the session, the skills register automatically. Superpowers' `load_skill(search="brainstorm")` finds the design skill. Design agents are available for delegation during brainstorming.
+
+---
+
 ## Recipes
 
 | Recipe | What It Does |

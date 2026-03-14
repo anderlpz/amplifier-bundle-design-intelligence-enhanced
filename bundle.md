@@ -24,6 +24,9 @@ bundle:
     - name: context
       path: behaviors/design-context.yaml
       description: Structured design context (context.json), inference-driven completeness, and design-check self-correction
+    - name: skills
+      path: behaviors/design-skills.yaml
+      description: Design skills discoverable by superpowers and other methodology bundles (brainstorming, planning)
 
 includes:
   # Standalone app bundle - includes foundation for full capabilities
@@ -37,6 +40,7 @@ includes:
   - bundle: design-intelligence-enhanced:behaviors/design-generation
   - bundle: design-intelligence-enhanced:behaviors/taste-awareness
   - bundle: design-intelligence-enhanced:behaviors/design-context
+  - bundle: design-intelligence-enhanced:behaviors/design-skills
 ---
 
 # Design Intelligence
