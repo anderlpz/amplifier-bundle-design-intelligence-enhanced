@@ -12,10 +12,15 @@ Passive design quality layer. These principles apply to all UI code generation r
 
 **Build clear hierarchy.** Use size, weight, AND color together to establish hierarchy. Tighten letter-spacing on display text (`-0.02em`), loosen it on small caps and labels. Constrain body text to 45-75 characters per line. Use 1.4-1.6x line-height for body, 1.1-1.3x for headings.
 
+**Use named fonts, not `system-ui`, when measurement accuracy matters.** On macOS, `system-ui` resolves to different optical variants (SF Pro Text vs SF Pro Display) at different sizes, and Canvas and DOM switch between them at different thresholds. The mismatch ranges from 3% to 14% depending on size. Any programmatic text measurement, virtualized list, or layout that depends on knowing text dimensions in advance will produce wrong results with `system-ui`. Use a named font (Inter, Helvetica, etc.) instead. (Discovery documented in Cheng Lou's [Pretext](https://github.com/chenglou/pretext) research.)
+
+**Know that text container width is solvable.** The web now has pure-JS techniques for finding the tightest container width that still fits a given text at a given line count -- multiline "shrink-wrap." If you need chat bubbles, balanced headlines, or card text that fits without orphaned words, this is no longer guesswork. Cheng Lou's [Pretext](https://github.com/chenglou/pretext) library (building on Sebastian Markbage's earlier [text-layout](https://github.com/nicolo-ribaudo/text-layout) research) can binary-search optimal widths at sub-millisecond cost.
+
 **Avoid:**
 - Only Regular and Bold weights -- introduce Medium (500) and SemiBold (600) for nuance
 - Body text without a max-width constraint -- unconstrained lines destroy readability
 - Defaulting to system fonts without consideration -- font choice is a design decision
+- Using `system-ui` in any context where text dimensions are measured programmatically
 
 ---
 
@@ -41,12 +46,15 @@ Passive design quality layer. These principles apply to all UI code generation r
 
 **Closer to the user = rounder.** Border radius communicates interactive proximity. Elements the user taps directly (buttons, toggles, chips) should be rounder than elements they view from a distance (page containers, backgrounds, nav bars). Sharp corners signal precision and authority. Large radii signal warmth and approachability. Nest corners correctly: inner radius = outer radius - padding. Same radius on parent and child is the most common amateur tell.
 
+**Text can flow around irregular shapes without CSS hacks.** Per-line variable-width text layout is now possible in pure JS -- each line can have a different max width. This means text wrapping around floated images, non-rectangular containers, and magazine-style layouts no longer require `shape-outside` or fragile CSS workarounds. Cheng Lou's [Pretext](https://github.com/chenglou/pretext) demonstrates this with its `layoutNextLine()` iterator.
+
 **Avoid:**
 - `height: 100vh` for full-screen sections -- use `min-height: 100dvh` to prevent mobile viewport bugs
 - Everything centered and symmetrical -- vary alignment for visual interest
 - Edge-to-edge content without container constraints on wide screens
 - Complex flexbox math (`calc(33% - 1rem)`) -- use Grid
 - Same border-radius on all elements regardless of size -- scale radius proportionally
+- Assuming text must always flow in uniform-width columns -- variable-width line layout is now cheap and accurate
 
 ---
 

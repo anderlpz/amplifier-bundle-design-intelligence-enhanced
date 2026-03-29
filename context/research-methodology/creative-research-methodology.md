@@ -568,6 +568,50 @@ This produces work that feels fresh and innovative while being grounded in prove
 
 ---
 
+## The Exploration Log Pattern
+
+When researching or building anything complex, maintain an exploration log that records what you tried, what survived, and what was rejected -- with reasoning for each.
+
+This pattern comes from [Pretext's RESEARCH.md](https://github.com/chenglou/pretext/blob/main/RESEARCH.md), which documents the full engineering history of a text layout engine with entries like:
+
+> "pair corrections were too local to move the real misses"
+> "local semantic preprocessing paid off more than clever runtime correction"
+
+### Structure
+
+Each exploration entry should capture:
+
+1. **What was tried** -- the specific approach or technique
+2. **What survived** -- what was kept and why
+3. **What was rejected** -- what was abandoned and why
+4. **The durable conclusion** -- the principle that outlasts the specific experiment
+
+### Why this matters for research
+
+Research without rejection history is incomplete. When you only document what worked, future researchers re-explore dead ends. When you document what failed and why, you create durable steering knowledge.
+
+This applies directly to creative research: when investigating analogous domains, record which cross-domain patterns transferred successfully and which looked promising but didn't hold up under application -- and why. The rejections are as valuable as the keeps.
+
+### Example
+
+```
+## Investigation: Traffic flow patterns for API rate limiting
+
+**What survived:**
+- Metering ramp concept for gradual load admission (from highway on-ramp metering)
+- Variable speed limits as dynamic rate adjustment (from managed motorways)
+
+**What was rejected:**
+- Congestion pricing as usage-based throttling -- the feedback loop was too slow
+  for real-time API traffic; pricing signals work on human timescales, not millisecond ones
+
+**Durable conclusion:**
+- Physical traffic patterns transfer well for admission control and flow shaping
+- They do not transfer well for feedback-driven dynamic pricing at API timescales
+```
+
+---
+
 ## References for Further Development
 
 - "Lateral Thinking" - Edward de Bono (deliberate creativity techniques)

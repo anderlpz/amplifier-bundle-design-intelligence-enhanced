@@ -339,6 +339,14 @@ amplifier bundle use design-intelligence-enhanced
 
 ---
 
+## Acknowledgments
+
+The design baseline and research methodology incorporate insights from external projects:
+
+- **[Pretext](https://github.com/chenglou/pretext)** by Cheng Lou (building on Sebastian Markbage's [text-layout](https://github.com/nicolo-ribaudo/text-layout) research) -- a pure-JS text measurement and layout engine. Pretext's empirical work on browser font rendering informed our typography guidance (`system-ui` measurement safety, multiline shrink-wrap, variable-width text flow), and its RESEARCH.md format inspired the Exploration Log Pattern in our creative research methodology.
+
+---
+
 ## Contributing
 
 This project is an enhanced fork maintained independently. For the official Microsoft design-intelligence bundle, see [microsoft/amplifier-bundle-design-intelligence](https://github.com/microsoft/amplifier-bundle-design-intelligence).
