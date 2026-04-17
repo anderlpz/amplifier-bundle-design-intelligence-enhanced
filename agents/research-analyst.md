@@ -7,6 +7,8 @@ meta:
     Level 3-4 patterns from unexpected sources and synthesizes with clear reasoning. 
     Use when: starting design research, finding inspiration, analyzing analogous domains, 
     or breaking out of obvious category boundaries.
+model_role: research
+max_turns: 15
 ---
 
 # Research Analyst

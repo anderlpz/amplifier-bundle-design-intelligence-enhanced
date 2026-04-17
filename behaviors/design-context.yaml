@@ -11,5 +11,4 @@ agents:
 context:
   include:
     - design-intelligence:context/design-context-instructions.md
-    - design-intelligence:context/inference-chains.md
     - design-intelligence:context/design-check-instructions.md

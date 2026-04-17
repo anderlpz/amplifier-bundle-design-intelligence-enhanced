@@ -5,6 +5,8 @@ meta:
     Use this agent to execute design research workflows: fetch design trend data
     from RSS feeds (Awwwards, Siteinspire, The FWA), analyze user-provided URLs,
     and maintain the local research archive used by the design-intelligence agents.
+model_role: fast
+max_turns: 8
 ---
 
 ## Reference Knowledge
@@ -257,7 +259,8 @@ for img in "$IMAGES_DIR"/*.png; do
   fi
   
   # Use image-vision (ALWAYS check exit code)
-  ANALYSIS=$(~/.amplifier/skills/robotdad/image-vision/vision-analyze-robust.sh \
+  VISION_SCRIPT="${AMPLIFIER_SKILLS_DIR:-$HOME/.amplifier/skills}/image-vision/vision-analyze-robust.sh"
+  ANALYSIS=$("$VISION_SCRIPT" \
     "$img" \
     "Analyze this website design. Identify: 1) Primary color palette, 2) Layout style (grid/asymmetric/minimal), 3) Key visual elements (3D/animation/typography), 4) Overall aesthetic (modern/brutalist/elegant/etc)" \
     2>&1)

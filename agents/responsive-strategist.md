@@ -14,12 +14,15 @@ meta:
     - Fluid typography and spacing
 
     Handles web modalities (desktop, tablet, mobile).
+model_role: reasoning
+max_turns: 12
 ---
 
 ## Reference Knowledge
 
 @design-intelligence:context/knowledge-base/accessibility.md
 @design-intelligence:context/philosophy/DESIGN-FRAMEWORK.md
+@design-intelligence:context/inference-chains.md
 
 ## Design Context Awareness
 

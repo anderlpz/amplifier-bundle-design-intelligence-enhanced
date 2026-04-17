@@ -37,6 +37,24 @@ This guidance helps the coordinator recognize design work and delegate appropria
 | "Generate design tokens" | `design-intelligence:token-generator` | Token creation (colors, typography, spacing) |
 | "Create component specs" | `design-intelligence:spec-writer` | Component specifications for implementation |
 
+## Ownership Boundaries: Art Director vs Design System Architect
+
+When a user's request touches both aesthetic direction and token architecture, use this rule:
+
+**Art director owns the "what" — design-system-architect owns the "how."**
+
+| Question | Owner | Why |
+|----------|-------|-----|
+| "What color palette fits our brand?" | art-director | Aesthetic judgment, brand personality |
+| "Set up our color tokens" | design-system-architect | Token architecture, scaling systems |
+| "Change the primary color" | art-director first, then design-system-architect | Art-director decides the new color; architect encodes it into tokens |
+| "Our blues feel too cold" | art-director | Subjective aesthetic evaluation |
+| "Add a semantic 'danger' color" | design-system-architect | Token naming and system structure |
+
+**The cascade:** Art-director writes `AESTHETIC-GUIDE.md`. Design-system-architect reads it and translates aesthetic decisions into tokens. The guide flows downstream; tokens don't flow upstream. If they conflict, the aesthetic guide is the source of truth for intent, and tokens are updated to match.
+
+**When ambiguous:** If the user says something like "help me with colors" without specifying aesthetic vs structural, delegate to art-director. Art direction precedes token architecture — you need to know what you want before you can encode it.
+
 ## Multi-Agent Patterns
 
 ### Pattern 1: System to Component to Implementation

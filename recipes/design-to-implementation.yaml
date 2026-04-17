@@ -1,15 +1,17 @@
 # Design to Implementation Recipe
-# The full pipeline: idea → discovery → design → generate → export → ready to code
+# The full pipeline: idea -> discovery -> design -> generate -> export -> ready to code
 
 name: design-to-implementation
+version: "1.1.0"
 description: |
   Complete end-to-end workflow from project idea to implementation-ready 
   design system. Produces everything a coding agent needs to build.
 
-# Input context:
-# - project: Brief description of what you're building
-# - components: Specific components to spec (optional)
-# - framework: tailwind|css|react (optional, default: tailwind)
+# Input context
+context:
+  project: ""  # Required: Brief description of what you're building
+  components: "Button, Input, Card, Alert, Badge"  # Specific components to spec (optional)
+  framework: "tailwind"  # tailwind|css|react (optional)
 
 steps:
   # Step 1: Discovery Interview
@@ -32,6 +34,7 @@ steps:
       - Constraints: Accessibility, platforms, brand guidelines?
       
       Be thorough but efficient. Output a Discovery Brief.
+    output: discovery_brief
 
   # Step 2: Research Context (if archive available)
   - id: research
@@ -39,7 +42,7 @@ steps:
     prompt: |
       Review this discovery brief and establish design direction:
       
-      {{steps.discover.result}}
+      {{discovery_brief}}
       
       Provide:
       
@@ -61,6 +64,7 @@ steps:
       ## Quality Baseline
       - What "done well" looks like for this project
       - Non-negotiables
+    output: research_context
 
   # Step 3: Generate Tokens
   - id: tokens
@@ -69,10 +73,10 @@ steps:
       Generate a complete Design Protocol token file.
       
       ## Discovery Brief
-      {{steps.discover.result}}
+      {{discovery_brief}}
       
       ## Design Direction
-      {{steps.research.result}}
+      {{research_context}}
       
       Output complete tokens.json with:
       - color (primary, secondary, neutral 50-950, semantic)
@@ -87,6 +91,7 @@ steps:
       - tailwind.config.js (Tailwind theme extension)
       
       Use Design Protocol format exactly.
+    output: token_output
 
   # Step 4: Component Specifications
   - id: components
@@ -94,10 +99,10 @@ steps:
     prompt: |
       Write Design Protocol component specifications.
       
-      Components to spec: {{components | default: "Button, Input, Card, Alert, Badge"}}
+      Components to spec: {{components}}
       
       Reference these tokens:
-      {{steps.tokens.result}}
+      {{token_output}}
       
       For each component:
       - meta (name, description, category)
@@ -110,6 +115,7 @@ steps:
       - examples (usage code)
       
       Output each as valid JSON following Design Protocol schema.
+    output: component_specs
 
   # Step 5: Export Package
   - id: export
@@ -121,16 +127,16 @@ steps:
       {{project}}
       
       ## Design Direction
-      {{steps.research.result}}
+      {{research_context}}
       
       ## Tokens
-      {{steps.tokens.result}}
+      {{token_output}}
       
       ## Component Specs
-      {{steps.components.result}}
+      {{component_specs}}
       
       ## Target Framework
-      {{framework | default: "tailwind"}}
+      {{framework}}
       
       Produce complete package:
       
@@ -155,6 +161,7 @@ steps:
          - Clear instructions and success criteria
       
       Format output so each file is clearly labeled with its path.
+    output: export_package
 
 # Final Output:
 # The export step produces everything needed to hand off to a coding agent.

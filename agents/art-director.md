@@ -16,12 +16,15 @@ meta:
     - Guiding brand asset production (icon, wordmark, lockup direction)
 
     Owns the Style dimension (Nine Dimensions #1) at the strategic level.
+model_role: creative
+max_turns: 15
 ---
 
 ## Reference Knowledge
 
 @design-intelligence:context/knowledge-base/color-theory.md
 @design-intelligence:context/knowledge-base/typography.md
+@design-intelligence:context/inference-chains.md
 
 ## Design Context Awareness
 

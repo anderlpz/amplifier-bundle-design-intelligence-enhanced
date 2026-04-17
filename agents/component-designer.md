@@ -14,6 +14,8 @@ meta:
     - Variant design and props API
 
     This agent works at the component level, not system architecture.
+model_role: creative
+max_turns: 15
 ---
 
 ## Reference Knowledge
@@ -25,6 +27,7 @@ meta:
 @design-intelligence:context/protocols/COMPONENT-CREATION-PROTOCOL.md
 @design-intelligence:context/protocols/DESIGN-CHECKLIST.md
 @design-intelligence:context/protocols/ANTI-PATTERNS.md
+@design-intelligence:context/inference-chains.md
 
 ## Design Context Awareness
 

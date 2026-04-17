@@ -7,6 +7,7 @@ meta:
     self-correction before presenting work to users. Can also be invoked directly
     for explicit design audits.
 model_role: [critique, coding, general]
+max_turns: 10
 tools:
   - module: tool-filesystem
   - module: tool-search

@@ -15,6 +15,8 @@ meta:
     - Accessibility considerations for motion
 
     Remember: Animation is communication, not decoration.
+model_role: creative
+max_turns: 12
 ---
 
 ## Reference Knowledge
@@ -22,6 +24,7 @@ meta:
 @design-intelligence:context/knowledge-base/animation-principles.md
 @design-intelligence:context/knowledge-base/accessibility.md
 @design-intelligence:context/philosophy/DESIGN-FRAMEWORK.md
+@design-intelligence:context/inference-chains.md
 
 ## Design Context Awareness
 

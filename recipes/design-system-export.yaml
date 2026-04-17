@@ -2,15 +2,17 @@
 # Full pipeline from discovery to implementation-ready export package
 
 name: design-system-export
+version: "1.1.0"
 description: |
   Complete design system generation pipeline. Takes a project through discovery,
   generates tokens and component specs, and produces an export package ready
   for coding agents to implement.
 
-# Input context:
-# - project_description: What are we building?
-# - components: List of components to spec (optional, defaults to core set)
-# - framework: Target framework - tailwind|css|both (optional, defaults to both)
+# Input context
+context:
+  project_description: ""  # Required: What are we building?
+  components: "Button, Input, Card, Alert"  # List of components to spec (optional)
+  framework: "both"  # Target framework - tailwind|css|both (optional)
 
 steps:
   # Phase 1: Discovery
@@ -32,6 +34,7 @@ steps:
       - Constraints (accessibility, platforms, existing brand)
       
       Output a comprehensive Discovery Brief.
+    output: discovery_brief
 
   # Phase 2: Design Direction
   - id: direction
@@ -39,7 +42,7 @@ steps:
     prompt: |
       Based on this discovery brief, establish a design direction:
       
-      {{steps.discover.result}}
+      {{discovery_brief}}
       
       Provide:
       1. Aesthetic Strategy (3-5 adjectives, what to embrace/avoid)
@@ -49,6 +52,7 @@ steps:
          - Typography direction (personality, font family suggestions)
          - Motion philosophy (subtle/expressive)
       4. Quality Baseline (what "done well" looks like)
+    output: design_direction
 
   # Phase 3: Generate Tokens
   - id: tokens
@@ -57,10 +61,10 @@ steps:
       Generate Design Protocol tokens based on:
       
       ## Discovery Brief
-      {{steps.discover.result}}
+      {{discovery_brief}}
       
       ## Design Direction
-      {{steps.direction.result}}
+      {{design_direction}}
       
       Produce complete tokens.json with:
       - Color tokens (primary, secondary, neutral scale, semantic)
@@ -71,14 +75,15 @@ steps:
       Also produce exports:
       - tokens.css (CSS custom properties)
       - tailwind.config.js (Tailwind configuration)
+    output: token_output
 
   # Phase 3.5: Sync tokens to .design/ for context reconciliation
   #
-  # ⚠️  PIPELINE NOTE: The token-generator above writes tokens to
+  # WARNING: PIPELINE NOTE: The token-generator above writes tokens to
   # `design-system-export/tokens/tokens.json` (inside the export package).
   # That path is NOT watched by the design-context reconciler. To keep
   # .design/context.json current, this step extracts the token content and
-  # writes it to `.design/tokens.json` — the path the reconciler reads.
+  # writes it to `.design/tokens.json` -- the path the reconciler reads.
   #
   # If you skip or remove this step, context.json will NOT reflect these
   # tokens and downstream agents (art-director, spec-writer, etc.) will
@@ -95,16 +100,17 @@ steps:
       and report any conflicts.
 
       Token generator output:
-      {{steps.tokens.result}}
+      {{token_output}}
+    output: context_sync
 
   # Phase 4: Component Specs (if components requested)
   - id: components
     agent: design-intelligence:spec-writer
     prompt: |
-      Write component specifications for: {{components | default: "Button, Input, Card, Alert"}}
+      Write component specifications for: {{components}}
       
       Reference these tokens:
-      {{steps.tokens.result}}
+      {{token_output}}
       
       For each component, produce a Design Protocol spec with:
       - Variants and sizes
@@ -113,6 +119,7 @@ steps:
       - Accessibility requirements
       - Behavior descriptions
       - Usage examples
+    output: component_specs
 
   # Phase 5: Export Package
   - id: export
@@ -121,15 +128,15 @@ steps:
       Create a complete export package for coding agents.
       
       ## Tokens
-      {{steps.tokens.result}}
+      {{token_output}}
       
       ## Components
-      {{steps.components.result}}
+      {{component_specs}}
       
       ## Design Direction
-      {{steps.direction.result}}
+      {{design_direction}}
       
-      Target framework: {{framework | default: "both"}}
+      Target framework: {{framework}}
       
       Produce:
       1. README.md - Quick start guide
@@ -137,6 +144,7 @@ steps:
       3. Component specs in JSON
       4. Implementation prompts for coding agents
       5. Usage examples
+    output: export_package
 
 # Output:
 # Complete export package ready for implementation.

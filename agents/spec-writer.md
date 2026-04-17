@@ -2,6 +2,8 @@
 meta:
   name: spec-writer
   description: Writes Design Protocol-compliant component specifications
+model_role: coding
+max_turns: 8
 ---
 
 # Spec Writer

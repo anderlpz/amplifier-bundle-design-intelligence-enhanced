@@ -85,7 +85,7 @@ All in: `context/research-methodology/`
 
 **image-vision** - Visual analysis of design screenshots
 - Used on-demand when user provides URLs or screenshots for analysis
-- See: `~/.amplifier/skills/robotdad/image-vision/SKILL.md`
+- See: Use `load_skill(skill_name="image-vision")` to access the image vision skill
 
 ---
 
@@ -389,7 +389,7 @@ Recommended: Archive months older than 6 months to compressed storage
 - **Archive Index**: `context/archive-index.md`
 
 ### Skills
-- **Image-Vision Skill**: `~/.amplifier/skills/robotdad/image-vision/SKILL.md`
+- **Image-Vision Skill**: Use `load_skill(skill_name="image-vision")`
 
 ---
 

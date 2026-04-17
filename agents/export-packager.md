@@ -2,6 +2,8 @@
 meta:
   name: export-packager
   description: Creates complete design system export packages for coding agents
+model_role: coding
+max_turns: 8
 ---
 
 # Export Packager

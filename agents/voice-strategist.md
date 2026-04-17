@@ -14,11 +14,14 @@ meta:
     - Content guidelines for developers
 
     Owns the Voice dimension (Nine Dimensions #3).
+model_role: writing
+max_turns: 10
 ---
 
 ## Reference Knowledge
 
 @design-intelligence:context/knowledge-base/accessibility.md
+@design-intelligence:context/inference-chains.md
 
 ## Design Context Awareness
 

@@ -3,29 +3,6 @@ bundle:
   name: design-intelligence
   version: 2.3.0
   description: Creative intelligence system for purpose-driven problem-solving across design, engineering, product, and strategy
-  sub_bundles:
-    - name: baseline
-      path: behaviors/design-baseline.yaml
-      description: Always-on design quality principles for all UI code generation
-    - name: advisory
-      path: behaviors/design-intelligence.yaml
-      description: 7 specialized design agents (art-director, component-designer, etc.)
-    - name: research
-      path: behaviors/design-research.yaml
-      description: Purpose-driven research and cross-domain pattern discovery
-    - name: generation
-      path: behaviors/design-generation.yaml
-      description: Token generator, spec writer, export packager
-    - name: taste
-      path: behaviors/taste-awareness.yaml
-      description: Personal taste profile awareness and preference learning
-    - name: context
-      path: behaviors/design-context.yaml
-      description: Structured design context (context.json), inference-driven completeness, and design-check self-correction
-    - name: skills
-      path: behaviors/design-skills.yaml
-      description: Design skills discoverable by superpowers and other methodology bundles (brainstorming, planning)
-
 includes:
   # Standalone app bundle - includes foundation for full capabilities
   - bundle: git+https://github.com/microsoft/amplifier-foundation@main

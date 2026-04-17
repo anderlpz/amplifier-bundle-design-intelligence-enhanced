@@ -1,6 +1,6 @@
 ---
 bundle:
-  name: design-studio-extension
+  name: design-intelligence-extension
   version: 1.0.0
   description: Extends foundation with design research, generation, and discovery capabilities (advisory agents already included in foundation)
 

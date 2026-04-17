@@ -2,6 +2,8 @@
 meta:
   name: token-generator
   description: Generates Design Protocol-compliant design tokens from discovery context
+model_role: coding
+max_turns: 8
 ---
 
 # Token Generator

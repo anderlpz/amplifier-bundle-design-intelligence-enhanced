@@ -15,6 +15,8 @@ meta:
     - Cross-cutting design concerns
 
     This agent operates at the system level, not individual components.
+model_role: reasoning
+max_turns: 15
 ---
 
 ## Reference Knowledge
@@ -27,6 +29,7 @@ meta:
 @design-intelligence:context/knowledge-base/accessibility.md
 @design-intelligence:context/protocols/DESIGN-CHECKLIST.md
 @design-intelligence:context/protocols/ANTI-PATTERNS.md
+@design-intelligence:context/inference-chains.md
 
 ## Design Context Awareness
 

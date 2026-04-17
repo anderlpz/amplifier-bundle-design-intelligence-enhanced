@@ -2,14 +2,16 @@
 # Full discovery-to-design workflow using discovery bundle + design intelligence
 
 name: design-discovery
+version: "1.1.0"
 description: |
   Complete design discovery workflow that captures requirements through 
   structured interviewing, gathers relevant inspiration, and synthesizes 
   into a design direction.
 
 # Input context
-# - project_description: What are we building?
-# - project_type: design/technical/learning/process/general (optional, auto-detected)
+context:
+  project_description: ""  # Required: What are we building?
+  # project_type: design/technical/learning/process/general (optional, auto-detected)
 
 steps:
   # Phase 1: Discovery (uses discovery bundle)
@@ -29,6 +31,7 @@ steps:
       Use the 4-layer discovery methodology. Stop when you reach readiness.
       
       Output a comprehensive Discovery Brief in markdown format.
+    output: discovery_brief
 
   # Phase 2: Research (uses design-intelligence research capability)
   - id: research
@@ -37,7 +40,7 @@ steps:
       Based on this discovery brief, find relevant design inspiration:
       
       ---
-      {{steps.discover.result}}
+      {{discovery_brief}}
       ---
       
       Research approach:
@@ -51,6 +54,7 @@ steps:
       - Reference examples with analysis
       - Design patterns that apply
       - Gaps or areas needing more research
+    output: research_context
 
   # Phase 3: Synthesis (uses art-director to synthesize)
   - id: synthesize
@@ -59,10 +63,10 @@ steps:
       Synthesize the discovery and research into a clear design direction.
       
       ## Discovery Brief
-      {{steps.discover.result}}
+      {{discovery_brief}}
       
       ## Research Context
-      {{steps.research.result}}
+      {{research_context}}
       
       Create a Design Direction document that includes:
       
@@ -90,6 +94,7 @@ steps:
       - Trade-offs to discuss
       
       This document will feed into token generation and component specification.
+    output: design_direction
 
 # Output
 # The final result is the synthesized Design Direction from the art-director,

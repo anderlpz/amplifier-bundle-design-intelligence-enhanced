@@ -14,12 +14,15 @@ meta:
     - Screen-level structure
 
     Owns the Space dimension (Nine Dimensions #4) at the page/view level.
+model_role: reasoning
+max_turns: 12
 ---
 
 ## Reference Knowledge
 
 @design-intelligence:context/knowledge-base/typography.md
 @design-intelligence:context/knowledge-base/accessibility.md
+@design-intelligence:context/inference-chains.md
 
 ## Design Context Awareness
 

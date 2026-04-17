@@ -6,6 +6,7 @@ meta:
     all design artifacts. Invoked by convention — design agents are instructed to delegate here after writing to .design/.
     Not typically called directly by users.
 model_role: fast
+max_turns: 5
 ---
 
 # Design Context Reconciler
