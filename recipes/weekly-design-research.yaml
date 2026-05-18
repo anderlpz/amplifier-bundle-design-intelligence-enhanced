@@ -1,0 +1,54 @@
+# Weekly Design Research Collection
+# Lightweight RSS collection — Layer 1 of the research system
+#
+# This recipe collects site metadata from design showcase RSS feeds
+# and generates a trend summary. It does NOT visit or analyze sites —
+# that happens on-demand via the research-analyst during active research.
+
+name: weekly-design-research
+version: "1.0.0"
+description: |
+  Lightweight weekly RSS collection from design showcase sites.
+  Fetches feeds from Awwwards, Siteinspire, and The FWA,
+  stores structured data in the archive, generates a trend summary,
+  and updates the 30-day rolling archive index.
+
+context:
+  year: ""        # Required: e.g., "2026"
+  month: ""       # Required: e.g., "01"
+  month_name: ""  # Required: e.g., "january"
+  date: ""        # Required: e.g., "2026-05-18"
+
+steps:
+  - id: collect
+    agent: design-intelligence:research-runner
+    prompt: |
+      Execute a weekly RSS collection for {{date}}.
+
+      1. Create the directory: archive/{{year}}/{{month}}-{{month_name}}/raw/
+      2. Fetch RSS feeds from all 3 sources:
+         - Awwwards: https://feeds.feedburner.com/awwwards-sites-of-the-day
+         - Siteinspire: https://www.siteinspire.com/websites/feed
+         - The FWA: https://thefwa.com/rss
+      3. Store each as: archive/{{year}}/{{month}}-{{month_name}}/raw/{source}-{{date}}.json
+      4. Report what was collected (counts per source, any failures)
+    output: collection_report
+
+  - id: summarize
+    agent: design-intelligence:research-runner
+    prompt: |
+      Generate the monthly trend summary for {{month_name}} {{year}}.
+
+      Collection report: {{collection_report}}
+
+      1. Read all raw/*.json files in archive/{{year}}/{{month}}-{{month_name}}/raw/
+      2. Analyze the collected projects for trend patterns:
+         - Color and visual style trends
+         - Layout and structure patterns
+         - Typography trends
+         - Notable techniques
+      3. Write archive/{{year}}/{{month}}-{{month_name}}/summary.md
+      4. Update context/archive-index.md with a fresh 30-day rolling summary
+
+      Keep archive-index.md under 500 tokens — it is pre-loaded in every session.
+    output: summary_report

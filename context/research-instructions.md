@@ -6,13 +6,20 @@ This document explains how to use the design research capability for creative, p
 
 ## Overview
 
-The design research capability provides:
+The design research capability operates on two layers:
 
-1. **Purpose-driven research** - Research by cognitive task across domains (not just category-matching)
-2. **RSS feed collection** - Awwwards, Siteinspire, The FWA
-3. **Visual analysis** - AI-powered screenshot analysis (user-directed)
-4. **Trend synthesis** - Actionable insights with reasoning
-5. **Conversational queries** - Natural language research requests
+**Layer 1: Lightweight Index (automated, periodic)**
+- RSS feed collection from Awwwards, Siteinspire, The FWA
+- Structured archive with 30-day rolling trend summary
+- Near-zero token cost — no site visits, no analysis
+
+**Layer 2: Targeted Analysis (on-demand, scoped)**
+- Purpose-driven research by cognitive task across domains
+- Selective site visits via browser-tester with nano-banana visual analysis
+- Research-question-specific analysis — not generic site descriptions
+- Knowledge curation — learnings saved to the knowledge base with user confirmation
+
+The index keeps you aware of what's winning awards. The analysis goes deep only when you have a real research question. This means you learn from sites instead of hoarding data about them.
 
 ---
 
@@ -66,12 +73,15 @@ All in: `context/research-methodology/`
 - Extracts Level 3-4 patterns from unexpected sources
 - Synthesizes with explicit reasoning
 - Conversational interface for design insights
+- **Targeted site analysis** via browser-tester + nano-banana
+- **Knowledge curation** — proposes saving learnings with user confirmation
 - **Uses**: Creative research methodology (multi-vector research)
 
-**research-runner** - Technical execution agent
+**research-runner** - Lightweight collection agent
 - Fetches design trend data from RSS feeds
-- Generates summaries and updates archive
-- Used via recipes or direct invocation
+- Generates trend summaries and updates archive index
+- Does NOT visit or analyze sites — that's the research-analyst's job
+- Used via the weekly-design-research recipe or direct invocation
 
 ### Recipe
 
@@ -81,11 +91,13 @@ All in: `context/research-methodology/`
 - Updates 30-day archive index
 - Takes 2-5 minutes to complete
 
-### Skills Required
+### Tools Used (On-Demand)
 
-**image-vision** - Visual analysis of design screenshots
-- Used on-demand when user provides URLs or screenshots for analysis
-- See: Use `load_skill(skill_name="image-vision")` to access the image vision skill
+**browser-tester** - Site visits during targeted analysis (research-analyst Mode B)
+- Visits sites and captures full-page screenshots as working artifacts
+
+**nano-banana** - Visual analysis of screenshots through research-question-specific prompts
+- Analyzes screenshots with targeted prompts, not generic descriptions
 
 ---
 
@@ -171,6 +183,31 @@ Use the research-runner agent to generate the monthly summary
 
 ---
 
+### Pattern 4: Knowledge Curation
+
+**When**: After a research session surfaces valuable design learnings
+
+**What you get**: Persistent design knowledge that compounds over time
+
+**How**:
+```
+After any research session, the research-analyst offers to save learnings:
+
+> "From this research, I found a pattern worth saving:
+>
+> Typography as hierarchy signal in dense dashboards: Condensed bold
+> sans-serifs create scannable headers without competing with data values.
+>
+> Save to .design/observed-expression/typography-personalities.md?"
+
+If you confirm, the learning is written to your project's local knowledge base.
+If you decline, the insight was still useful in the research synthesis.
+```
+
+**Output**: Growing knowledge base in `.design/observed-expression/` that informs future research
+
+---
+
 ## Example Workflows
 
 ### Workflow 1: Purpose-Driven Project Research
@@ -247,10 +284,10 @@ Query the design archive for recent visual patterns.
 
 **Use when**: "What's trending now?" or examples from award-winning sites
 
-### Mode B: User-Directed URL Analysis
-Analyze a specific site the user provides using web_fetch and optional screenshot analysis.
+### Mode B: Targeted Site Analysis
+Visit and analyze specific sites through a research-question-specific lens using browser-tester for screenshots and nano-banana for visual analysis.
 
-**Use when**: User shares a URL and wants pattern extraction. The user provides the URL, and the system fetches and analyzes the page content. If the user provides a screenshot, vision analysis is also applied.
+**Use when**: User shares a URL and wants pattern extraction, or the research-analyst identifies archive sites worth analyzing deeply during Mode C research. The analysis prompt is tailored to the active research question — not a generic "describe this site."
 
 ### Mode C: Cross-Domain Research (Purpose-Driven)
 Multi-vector research by cognitive task.
@@ -271,7 +308,6 @@ archive/
 |   |   |   +-- awwwards-2026-01-27.json
 |   |   |   +-- siteinspire-2026-01-27.json
 |   |   |   +-- thefwa-2026-01-27.json
-|   |   +-- visual-analysis.json
 |   |   +-- summary.md
 |   +-- 02-february/
 |       +-- ...
@@ -281,9 +317,10 @@ archive/
 ### File Descriptions
 
 **raw/*.json** - Structured project data from RSS feeds (titles, URLs, categories, tags)
-**visual-analysis.json** - Vision AI analysis results (colors, layouts, elements) — populated when user provides screenshots or URLs for visual analysis
 **summary.md** - Monthly trend summary (LLM-optimized)
-**archive-index.md** - 30-day rolling summary (<500 tokens)
+**archive-index.md** - 30-day rolling summary (<500 tokens, pre-loaded in every session)
+
+The archive is intentionally lightweight. No screenshots, no visual analysis artifacts. Visual analysis happens on-demand during research sessions — screenshots are working artifacts that exist only for the duration of the analysis.
 
 ---
 
@@ -332,14 +369,6 @@ Full catalog: `context/research-methodology/cognitive-task-catalog.md`
 
 ## Troubleshooting
 
-### Vision Analysis Issues
-
-**Problem**: Many images failed analysis
-- Check API keys are set (ANTHROPIC_API_KEY, GOOGLE_API_KEY, etc.)
-- Verify image files aren't corrupted
-- Check image sizes (resize if > 5MB)
-- Review timeout settings
-
 ### Research Quality Issues
 
 **Problem**: Research feels generic or obvious
@@ -356,21 +385,19 @@ Full catalog: `context/research-methodology/cognitive-task-catalog.md`
 - Review raw/*.json files to confirm data was captured
 - Try running the recipe again — transient failures are common with feeds
 
+**Known feed quirks:**
+- **Awwwards**: Use the FeedBurner URL (`feeds.feedburner.com/awwwards-sites-of-the-day`), not the old `/websites/rss/` path which now returns HTML
+- **Siteinspire**: Use `/websites/feed` not the old `/websites.rss` (returns 429)
+- **The FWA**: Use `/rss` not `/rss/awards` (the old endpoint returns 500)
+
 ---
 
 ## Configuration
 
-### Vision Analysis Settings
-
-Default providers (in order of fallback):
-1. **Gemini Flash** - Fastest (3-10s), good quality
-2. **Anthropic Claude** - Balanced (5-15s)
-3. **OpenAI GPT-4** - Slowest (8-20s), highest quality
-
 ### Archive Retention
 
-Default: Keep all data indefinitely
-Recommended: Archive months older than 6 months to compressed storage
+Default: 30-60 day rolling window for the lightweight index
+Learnings persist in `.design/observed-expression/` indefinitely
 
 ---
 
@@ -388,8 +415,9 @@ Recommended: Archive months older than 6 months to compressed storage
 - **Weekly Research Recipe**: `recipes/weekly-design-research.yaml`
 - **Archive Index**: `context/archive-index.md`
 
-### Skills
-- **Image-Vision Skill**: Use `load_skill(skill_name="image-vision")`
+### Tools (On-Demand Analysis)
+- **browser-tester**: Site visits and screenshot capture during targeted analysis
+- **nano-banana**: Visual analysis with research-question-specific prompts
 
 ---
 

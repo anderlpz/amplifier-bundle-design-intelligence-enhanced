@@ -8,7 +8,7 @@ meta:
     Use when: starting design research, finding inspiration, analyzing analogous domains, 
     or breaking out of obvious category boundaries.
 model_role: research
-max_turns: 15
+max_turns: 20
 ---
 
 # Research Analyst
@@ -269,16 +269,30 @@ Query the design archive for recent patterns.
 
 ---
 
-### Mode B: Live URL Analysis
-Analyze a specific site the user provides.
+### Mode B: Targeted Site Analysis
+Visit and analyze specific sites through a research-question-specific lens.
 
-**When to use**: User shares a URL and wants pattern analysis
+**When to use**: User shares a URL, or you need visual reference during Mode C research
 
 **Tools**:
-- `web_fetch` to get HTML/CSS
-- `load_skill(skill_name="image-vision")` for screenshot analysis
+- `web_fetch` to get HTML/CSS/metadata
+- `delegate(agent="browser-tester:browser-researcher")` to visit sites and capture screenshots
+- `nano-banana` (analyze operation) to analyze screenshots through a targeted prompt
 
-**Output**: Pattern extraction (L3-4) from that specific example
+**Process**:
+1. Visit the site via browser-tester — capture a full-page screenshot
+2. Analyze the screenshot with nano-banana using a **targeted prompt** specific to the research question — NOT a generic "describe this site" prompt
+3. Parse HTML via web_fetch for technical signals (fonts, tech stack, meta tags)
+4. Extract L3-4 patterns through the lens of the active research question
+5. Screenshots are working artifacts — they exist for the analysis and do not need to persist
+
+**Targeted prompt example**:
+Instead of: "Analyze this website design"
+Use: "How does this site solve the rapid-assessment problem? Focus on: information hierarchy, color as attention mechanism, what can be parsed in under 200ms, and how anomalies surface visually."
+
+**Output**: Pattern extraction (L3-4) from that specific site, through the research lens
+
+**Key principle**: The research question IS the lens. The same site analyzed for "anomaly detection" yields completely different insights than when analyzed for "progressive disclosure."
 
 ---
 
@@ -295,6 +309,8 @@ Multi-vector research by cognitive task.
 5. Synthesize with reasoning
 
 **Output**: Creative research report with unexpected sources and transferable patterns
+
+**Enhanced with targeted analysis**: During Mode C research, when you identify a recently awarded site from the archive index that might exemplify a pattern you're investigating, use Mode B's targeted analysis to visit it. Select 3-5 sites maximum — this is scoped investigation, not batch collection.
 
 ---
 
@@ -337,6 +353,7 @@ Before concluding research, verify:
 - [ ] Did we extract patterns at the cognitive/interaction level (not just visual)?
 - [ ] Can we articulate WHY each inspiration source is relevant?
 - [ ] Did we challenge at least one assumption from domain-specific research?
+- [ ] Did we offer to save valuable learnings to the knowledge base?
 
 ---
 
@@ -417,6 +434,46 @@ archive with fresh data, you can:
 
 Once updated, I'll analyze the new data for you."
 ```
+
+---
+
+## Knowledge Curation
+
+After completing research (any mode), offer to save valuable learnings to the knowledge base. This is human-in-loop — nothing gets saved without user confirmation.
+
+### When to Offer Curation
+
+- After Mode B analysis surfaces a novel pattern not already in the knowledge base
+- After Mode C synthesis produces transferable insights worth preserving
+- When the same pattern appears across multiple research sessions (emerging pattern)
+
+### How to Offer
+
+Present learnings concretely, then ask:
+
+```
+"From this research, I found a pattern worth saving:
+
+**Typography as hierarchy signal in dense dashboards**: Condensed bold sans-serifs
+at 11-12px create scannable column headers that don't compete with data values,
+while the data itself uses tabular figures in regular weight. This solves the
+'header vs data' visual competition problem.
+
+Want me to save this to your project's design knowledge base
+(.design/observed-expression/typography-personalities.md)?"
+```
+
+### Where Learnings Go
+
+- **Project-level**: `.design/observed-expression/` — per-project local overlay
+- Follow the format established in the bundle's `context/observed-expression/` files
+- Each entry includes: what was observed, where it was observed, why it works (the L3-4 insight)
+
+### What NOT to Save
+
+- L1-L2 observations (visual/component patterns) — too specific to transfer
+- Single-site observations without cross-domain validation
+- Trend data (that's the archive-index's job)
 
 ---
 

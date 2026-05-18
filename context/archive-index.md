@@ -36,9 +36,8 @@
 
 ## Recent Summaries
 
-- [January 2026 (Week 2)](../archive/2026/01-january/summary.md) - 14 full-page screenshots
+- [January 2026 (Week 2)](../archive/2026/01-january/summary.md)
   - Sources: Awwwards (7), Siteinspire (7)
-  - Vision AI analysis: 7 detailed site breakdowns
   - Key themes: Deconstructed typography, immersive heroes, monochromatic luxury
 
 ---
@@ -50,10 +49,7 @@ archive/
 ├── YYYY/
 │   └── MM-month/
 │       ├── raw/           (JSON data with site URLs)
-│       ├── images/        (full-page screenshots)
-│       │   └── resized/   (API-compatible versions)
-│       ├── visual-analysis.json
-│       └── summary.md
+│       └── summary.md     (monthly trend summary)
 └── context/archive-index.md (this file)
 ```
 

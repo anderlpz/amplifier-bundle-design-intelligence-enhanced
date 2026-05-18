@@ -20,8 +20,9 @@ This document outlines the current state of the design research capability and i
 
 ### Design Principles
 
-- **RSS feeds over scraping** — We use publicly available RSS feeds as the intended syndication format. No headless browsers, no DOM scraping, no CSS selectors targeting third-party site structure.
-- **User-directed visual analysis** — Screenshot analysis is available on-demand when users provide URLs or images. No automated visiting or screenshotting of external sites.
+- **RSS feeds for collection** — We use publicly available RSS feeds as the intended syndication format for the lightweight index. No batch scraping or automated mass collection.
+- **Targeted analysis on-demand** — Site visits and visual analysis happen only during active research sessions via browser-tester and nano-banana, scoped to a specific research question. Screenshots are working artifacts that do not persist.
+- **Learn, don't hoard** — The archive stores lightweight metadata (URLs, titles, tags). Learnings go to the knowledge base (`.design/observed-expression/`) via human-in-loop curation.
 - **Privacy by default** — See PRIVACY.md for data handling details.
 
 ---
@@ -39,14 +40,14 @@ This document outlines the current state of the design research capability and i
 - [ ] **Change detection** — Alert when RSS feed format changes
 - [ ] **Feed validation** — Verify feed health and report stale/broken feeds
 
-### 2. Vision Analysis
+### 2. Targeted Analysis
 
-**Current:** User-directed screenshot analysis via image-vision
+**Current:** On-demand site visits via browser-tester + visual analysis via nano-banana during active research
 
 **Opportunities:**
-- [ ] **Structured output** — Consistent JSON schema for visual analysis
-- [ ] **Color extraction** — Automated palette extraction from user-provided images
-- [ ] **Typography detection** — Font identification (if technically feasible)
+- [ ] **Structured extraction** — Consistent JSON schema for metadata extracted during targeted analysis
+- [ ] **Color extraction** — Automated palette extraction from visited sites
+- [ ] **Typography detection** — Font identification from HTML/CSS parsing during visits
 - [ ] **Layout classification** — Automated categorization of layout patterns
 - [ ] **Comparison analysis** — Track how specific design patterns evolve over time
 
